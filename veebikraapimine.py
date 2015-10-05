@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#Versioon: 0.0.4
+#Versioon: 0.0.5
 #Kuupaev: 05.10.2015
 
 import urllib.request
@@ -21,6 +21,13 @@ with open("data.csv","w", encoding="utf-8") as output_file:
             row =[listitem[0],listitem[1],listitem[2]]
             writer.writerow([tulp.strip() for tulp in row])
             print (row)
+
+#parse e-mail
+
+#parse phone
+
+#other pages to scrape
+
 
 
 
