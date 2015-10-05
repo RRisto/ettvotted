@@ -1,8 +1,13 @@
 # -*- coding: utf-8 -*-
 
+#Versioon: 0.0.3
+#Kuupaev: 05.10.2015
+
 import urllib.request
 import csv
 from bs4 import BeautifulSoup
+
+
 
 with open("data.csv","w", encoding="utf-8") as output_file:
     writer = csv.writer(output_file, delimiter="\t",quoting=csv.QUOTE_ALL)
