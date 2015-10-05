@@ -1,4 +1,4 @@
-# ettvotted
+# ettevotted
 - Scrape list of companies from the websites
 - Clean data
 - Save data
