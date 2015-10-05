@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-#Versioon: 0.0.3
+#Versioon: 0.0.4
 #Kuupaev: 05.10.2015
 
 import urllib.request
