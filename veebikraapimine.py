@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 #Versioon: 0.0.6
-#Kuupaev: 07.10.2015
+#Kuupaev: 21.10.2015
 
 import urllib.request
 import csv
@@ -10,7 +10,7 @@ import time
 import re
 with open("data.csv","w", encoding="utf-8") as output_file:
     writer = csv.writer(output_file, delimiter="\t",quoting=csv.QUOTE_ALL)
-    for i in range (6,7):
+    for i in range (2219,2802):
         url = "http://izzi.ee/catalog/category/Ettev%C3%B5tted/page/{}".format(i)
         time.sleep(1)
         response =urllib.request.urlopen(url)
@@ -33,7 +33,11 @@ with open("data.csv","w", encoding="utf-8") as output_file:
                 aadressclean= "".join(aadress[0])
             except:
                 print ("error: ")
-            row = (nimi,regkood,aadressclean,emailclean,telefonclean,telefon372clean)
+            row = (nimi,regkood,aadressclean,emailclean,telefonclean,telefon372clean,url)
 
             writer.writerow([tulp.strip() for tulp in row])
-            print (row)
+            try:
+                print (row)
+            except:
+                print ("Error printimisel")
+
