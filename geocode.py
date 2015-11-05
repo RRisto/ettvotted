@@ -22,3 +22,5 @@ with open("test.txt","w") as output:
         row = (x+";"+y+";"+taisaadress)
         output.write(row+"\n")
         time.sleep(1)
+
+        #kirjuta koordinaadid csv faili
