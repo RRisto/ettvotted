@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Nov 11 18:01:57 2015
+
+@author: Risto
+"""
 import os
 os.chdir(r"C:\Users\Risto\Documents\GitHub\GeoJson--riregistri-andmetest")
 
@@ -7,7 +13,6 @@ import requests
 import json
 import time
 
-
 data=pandas.read_csv("maaamet_arireg.csv", sep=";", encoding="latin-1")
 #vaja teha ainult esimesele sisselugemisel
 #data["aadressid"] = data["asukoht_ettevotja_aadressis"]+","+data["asukoha_ehak_tekstina"]
@@ -15,9 +20,9 @@ data=pandas.read_csv("maaamet_arireg.csv", sep=";", encoding="latin-1")
 #data["viitepunkt_x"]=""
 #data["taisaadress"]=""
 
-#
+#määrame koha, kust loopimine pooleli jäi
 alguskoht=len(data["viitepunkt_y"])-data["viitepunkt_y"].isnull().sum()
-#for i in range(alguskoht,len(data["aadressid"])):
+#alustame loopimist
 for i in range(alguskoht,100):    
         url = "http://inaadress.maaamet.ee/inaadress/gazetteer?address="+data["aadressid"][i]
         r = requests.get(url)
@@ -32,11 +37,7 @@ for i in range(alguskoht,100):
                 data.loc[i,"viitepunkt_x"]=j.split(",")[0]
                 data.loc[i,"viitepunkt_y"]=j.split(",")[1]
                 data.loc[i, "taisaadress"] = adresses["taisaadress"]
-                #row = (x+";"+y+";"+taisaadress)
-                #output.write(row+"\n")
             except:
-                #row = ("NA"+";"+"NA"+";"+taisaadress)
-                #output.write(row+"\n")
                 data.loc[i,"viitepunkt_x"]="NA"
                 data.loc[i,"viitepunkt_y"]="NA"
                 data.loc[i, "taisaadress"]="NA"
@@ -51,8 +52,3 @@ for i in range(alguskoht,100):
 #saveime
 data.to_csv("maaamet_arireg.csv", sep=";")
 
-
-    
-
-    
- 
