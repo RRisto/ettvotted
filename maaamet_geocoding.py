@@ -4,8 +4,8 @@ Created on Wed Nov 11 18:01:57 2015
 
 @author: Risto
 """
-import os
-os.chdir(r"C:\Users\Risto\Documents\GitHub\GeoJson--riregistri-andmetest")
+#import os
+#os.chdir(r"C:\Users\Risto\Documents\GitHub\GeoJson--riregistri-andmetest")
 
 import pandas
 from geopy.geocoders import Nominatim
@@ -13,7 +13,7 @@ import requests
 import json
 import time
 
-data=pandas.read_csv("maaamet_arireg.csv", sep=";", encoding="latin-1")
+data=pandas.read_csv("list.csv", sep=";", encoding="latin-1")
 #vaja teha ainult esimesele sisselugemisel
 #data["aadressid"] = data["asukoht_ettevotja_aadressis"]+","+data["asukoha_ehak_tekstina"]
 #data["viitepunkt_y"]=""
@@ -21,15 +21,17 @@ data=pandas.read_csv("maaamet_arireg.csv", sep=";", encoding="latin-1")
 #data["taisaadress"]=""
 
 #määrame koha, kust loopimine pooleli jäi
-alguskoht=len(data["viitepunkt_y"])-data["viitepunkt_y"].isnull().sum()
+alguskoht=data["viitepunkt_y"].last_valid_index()+1
 #alustame loopimist
-for i in range(alguskoht,100):    
-        url = "http://inaadress.maaamet.ee/inaadress/gazetteer?address="+data["aadressid"][i]
-        r = requests.get(url)
-        j = r.content
-        json_str = j.decode("utf-8")
-        parsed_json = json.loads(json_str)
+for i in range(alguskoht,120):
+        print (i,data["aadressid"][i])
+        url = "http://inaadress.maaamet.ee/inaadress/gazetteer?address="+str(data["aadressid"][i])
+        time.sleep(1)
         try:
+            r = requests.get(url)
+            j = r.content
+            json_str = j.decode("utf-8")
+            parsed_json = json.loads(json_str)
             adresses = parsed_json["addresses"][0]
             url="http://www.maaamet.ee/rr/geo-lest/url/?xy="+adresses["viitepunkt_x"]+","+ adresses["viitepunkt_y"]
             try:            
@@ -50,5 +52,5 @@ for i in range(alguskoht,100):
         
 
 #saveime
-data.to_csv("maaamet_arireg.csv", sep=";")
+data.to_csv("list.csv", sep=";")
 
