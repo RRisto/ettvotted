@@ -14,16 +14,18 @@ import json
 import time
 
 data=pandas.read_csv("list.csv", sep=";", encoding="utf-8")
-#vaja teha ainult esimesele sisselugemisel
 data["aadressid"] = data["asukoht_ettevotja_aadressis"]+","+data["asukoha_ehak_tekstina"]
-data["viitepunkt_y"]=""
-data["viitepunkt_x"]=""
-data["taisaadress"]=""
-
-#määrame koha, kust loopimine pooleli jäi
-#alguskoht=data["viitepunkt_y"].last_valid_index()+1
+if "viitepunkt_y" in data.columns:
+    alguskoht=data["viitepunkt_y"].last_valid_index()+1
+else:
+    data["viitepunkt_y"]=""
+    data["viitepunkt_x"]=""
+    data["taisaadress"]=""
+    alguskoht = 0
+loppkoht = data["aadressid"].last_valid_index()
+print ("Vahemik on: "+ str(alguskoht)+"-"+str(loppkoht))
 #alustame loopimist
-for i in range(1,20):
+for i in range(alguskoht,loppkoht):
         print (i,data["aadressid"][i])
         url = "http://inaadress.maaamet.ee/inaadress/gazetteer?address="+str(data["aadressid"][i])
         time.sleep(1)
