@@ -40,15 +40,18 @@ for i in range(alguskoht,loppkoht):
                 data.loc[i,"viitepunkt_x"]=j.split(",")[0]
                 data.loc[i,"viitepunkt_y"]=j.split(",")[1]
                 data.loc[i, "taisaadress"] = adresses["taisaadress"]
+                print(i, adresses["taisaadress"])
             except:
                 data.loc[i,"viitepunkt_x"]="NA"
                 data.loc[i,"viitepunkt_y"]="NA"
                 data.loc[i, "taisaadress"]="NA"
+                print(i, data["taisaadress"][i])
                 continue
         except:
             data.loc[i,"viitepunkt_x"]="NA"
             data.loc[i,"viitepunkt_y"]="NA"
             data.loc[i, "taisaadress"]="NA"
+            print(i, data["taisaadress"][i])
             continue
         
 
