@@ -13,17 +13,17 @@ import requests
 import json
 import time
 
-data=pandas.read_csv("list.csv", sep=";", encoding="latin-1")
+data=pandas.read_csv("list.csv", sep=";", encoding="utf-8")
 #vaja teha ainult esimesele sisselugemisel
-#data["aadressid"] = data["asukoht_ettevotja_aadressis"]+","+data["asukoha_ehak_tekstina"]
-#data["viitepunkt_y"]=""
-#data["viitepunkt_x"]=""
-#data["taisaadress"]=""
+data["aadressid"] = data["asukoht_ettevotja_aadressis"]+","+data["asukoha_ehak_tekstina"]
+data["viitepunkt_y"]=""
+data["viitepunkt_x"]=""
+data["taisaadress"]=""
 
 #määrame koha, kust loopimine pooleli jäi
-alguskoht=data["viitepunkt_y"].last_valid_index()+1
+#alguskoht=data["viitepunkt_y"].last_valid_index()+1
 #alustame loopimist
-for i in range(alguskoht,120):
+for i in range(1,20):
         print (i,data["aadressid"][i])
         url = "http://inaadress.maaamet.ee/inaadress/gazetteer?address="+str(data["aadressid"][i])
         time.sleep(1)
@@ -52,5 +52,5 @@ for i in range(alguskoht,120):
         
 
 #saveime
-data.to_csv("list.csv", sep=";")
+data.to_csv("list.csv", sep=";", encoding="utf-8")
 
